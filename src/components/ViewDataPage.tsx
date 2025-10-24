@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { ref, onValue, remove } from 'firebase/database';
 import { database } from '../firebase';
 import { Trash2, FolderOpen, Database as DatabaseIcon } from 'lucide-react';
-import type { FolderType, FolderData, DataItem } from '../types';
+import type { FolderType, FolderData} from '../types';
 
 function ViewDataPage() {
   const [folderType, setFolderType] = useState<FolderType>('qa');
