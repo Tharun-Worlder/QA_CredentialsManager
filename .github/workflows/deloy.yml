@@ -26,6 +26,8 @@ jobs:
       - name: Build Vite app
         env:
           VITE_FIREBASE_DATABASE_URL: ${{ vars.VITE_FIREBASE_DATABASE_URL }}
+          VITE_UNIVERSAL_USERNAME: ${{ vars.VITE_UNIVERSAL_USERNAME }}
+          VITE_UNIVERSAL_PASSWORD: ${{ vars.VITE_UNIVERSAL_PASSWORD }}
         run: npm run build
 
       - name: Deploy to GitHub Pages
