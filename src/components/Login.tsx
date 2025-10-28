@@ -1,22 +1,22 @@
 import { useState } from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase';
 
 interface LoginProps {
   onAuth: () => void;
 }
 
-const UNIVERSAL_USERNAME = import.meta.env.VITE_UNIVERSAL_USERNAME;
-const UNIVERSAL_PASSWORD = import.meta.env.VITE_UNIVERSAL_PASSWORD;
-
 function Login({ onAuth }: LoginProps) {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e?: React.FormEvent) => {
+  const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault();
-    if (username === UNIVERSAL_USERNAME && password === UNIVERSAL_PASSWORD) {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
       onAuth();
-    } else {
-      alert('Invalid credentials');
+    } catch (err: any) {
+      alert('Login failed: ' + err.message);
     }
   };
 
@@ -28,12 +28,13 @@ function Login({ onAuth }: LoginProps) {
       >
         <h1 className="text-2xl font-bold mb-6">Sign in</h1>
 
-        <label className="block text-sm font-medium mb-2 text-gray-300">Username</label>
+        <label className="block text-sm font-medium mb-2 text-gray-300">Email</label>
         <input
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className="w-full bg-black border border-gray-700 rounded-lg px-4 py-3 text-white mb-4"
-          placeholder="Enter username"
+          placeholder="Enter email"
           autoFocus
         />
 
